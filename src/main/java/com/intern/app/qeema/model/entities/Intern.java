@@ -32,27 +32,24 @@ public class Intern {
 
 
     @Column(name = "full_name",nullable = false)
-
     private String name;
+
     @Column(name = "email",nullable = false)
-
     private String email;
-    @Column(name = "gpa",nullable = false)
 
+    @Column(name = "gpa",nullable = false)
     private double gpa;
 
     @Column(name = "cv_url",nullable = false,columnDefinition = "TEXT")
-
     private String cvUrl;
+
     @Column(name = "university",nullable = false)
-
     private String university;
-    @Column(name = "is_accepted",nullable = false, columnDefinition = "boolean default false")
 
+    @Column(name = "is_accepted",nullable = false, columnDefinition = "boolean default false")
     private boolean isAccepted ;
 
     @Column(name = "desiredTrack",nullable = false)
-
    private DesiredTrack desiredTrack;
 
     @OneToMany(fetch = FetchType.LAZY)

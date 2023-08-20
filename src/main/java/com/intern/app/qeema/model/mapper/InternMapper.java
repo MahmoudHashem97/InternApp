@@ -1,4 +1,4 @@
-package com.intern.app.qeema.model.helper;
+package com.intern.app.qeema.model.mapper;
 
 import com.intern.app.qeema.model.entities.Intern;
 import com.intern.app.qeema.model.models.InternRequest;

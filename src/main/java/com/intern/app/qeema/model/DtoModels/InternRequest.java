@@ -1,4 +1,4 @@
-package com.intern.app.qeema.model.models;
+package com.intern.app.qeema.model.DtoModels;
 
 
 import jakarta.validation.constraints.Email;
@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 public class InternRequest {
     @NotBlank(message = "Name is mandatory")
     private String name;
-
+    @NotBlank(message = "password is mandatory")
+    private String password;
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;

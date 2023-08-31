@@ -1,13 +1,19 @@
 package com.intern.app.qeema.model.entities;
 
 
-import com.intern.app.qeema.model.models.DesiredTrack;
+import com.intern.app.qeema.model.DtoModels.DesiredTrack;
+import com.intern.app.qeema.model.DtoModels.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -16,26 +22,26 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "Intern")
-public class Intern {
+public class Intern implements UserDetails {
 @Id
 @SequenceGenerator(
         name = "INTERN_sequence",
-        sequenceName ="student_sequence",
+        sequenceName ="intern_sequence",
         allocationSize = 1
 )
 @GeneratedValue(
         strategy = GenerationType.SEQUENCE,
         generator = "INTERN_sequence"
-
 )
     private int id;
-
-
     @Column(name = "full_name",nullable = false)
     private String name;
 
     @Column(name = "email",nullable = false)
     private String email;
+
+    @Column(name = "password",nullable = false)
+    private String password;
 
     @Column(name = "gpa",nullable = false)
     private double gpa;
@@ -52,7 +58,42 @@ public class Intern {
     @Column(name = "desiredTrack",nullable = false)
    private DesiredTrack desiredTrack;
 
+    private Role role ;
+
+
     @OneToMany(fetch = FetchType.LAZY)
     private List<Projects> ProjectsInterns;
 
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

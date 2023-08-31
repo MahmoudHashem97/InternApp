@@ -1,8 +1,8 @@
 package com.intern.app.qeema.model.mapper;
 
 import com.intern.app.qeema.model.entities.Intern;
-import com.intern.app.qeema.model.models.InternRequest;
-import com.intern.app.qeema.model.models.InternResponse;
+import com.intern.app.qeema.model.DtoModels.InternRequest;
+import com.intern.app.qeema.model.DtoModels.InternResponse;
 
 public class InternMapper {
     public static Intern internRequestMapper(InternRequest internRequest){

@@ -1,8 +1,7 @@
 package com.intern.app.qeema.service;
 
 import com.intern.app.qeema.model.entities.Projects;
-import com.intern.app.qeema.model.models.InternProject;
-import com.intern.app.qeema.reprosatory.InternRepo;
+import com.intern.app.qeema.model.DtoModels.InternProject;
 import com.intern.app.qeema.reprosatory.ProjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +10,7 @@ import org.springframework.stereotype.Service;
 public class projectServices {
     @Autowired
     private ProjectRepo projectRepo;
-    @Autowired
-    private InternRepo internRepo;
+
 
 
     public Projects addProject(InternProject internProject){

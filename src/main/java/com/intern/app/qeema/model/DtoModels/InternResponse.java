@@ -1,4 +1,4 @@
-package com.intern.app.qeema.model.models;
+package com.intern.app.qeema.model.DtoModels;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

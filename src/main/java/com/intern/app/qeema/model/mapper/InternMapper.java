@@ -1,5 +1,6 @@
 package com.intern.app.qeema.model.mapper;
 
+import com.intern.app.qeema.model.DtoModels.AcceptanceResponse;
 import com.intern.app.qeema.model.entities.Intern;
 import com.intern.app.qeema.model.DtoModels.InternRequest;
 import com.intern.app.qeema.model.DtoModels.InternResponse;
@@ -24,4 +25,15 @@ public class InternMapper {
                 .gpa(intern.getGpa())
                 .build();
     }
+
+    public static AcceptanceResponse AcceptanceResponseMapper(Intern intern){
+        AcceptanceResponse acceptanceResponse= AcceptanceResponse.builder().name(intern.getName())
+                .desiredTrack(intern.getDesiredTrack())
+                .id(intern.getId())
+                .gpa(intern.getGpa())
+                .acceptance(intern.isAccepted())
+                .build();
+        return acceptanceResponse;
+    }
+
 }

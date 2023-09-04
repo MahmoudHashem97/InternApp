@@ -22,17 +22,12 @@ public class AuthenticationSevice {
     private final AuthenticationManager authenticationManager;
     public AuthenticationResponse register(InternRequest request) {
         var user = Intern.builder()
-
                 .email(request.getEmail())
                 .gpa(request.getGpa())
-                .name(request.getName())
                 .desiredTrack(request.getDesiredTrack())
                 .university(request.getUniversity())
                 .cvUrl(request.getCvUrl())
-
-
                 .name(request.getName())
-                .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.User)
                 .build();
@@ -48,7 +43,6 @@ public class AuthenticationSevice {
                 new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword())
         );
         var user =repository.findByEmail(request.getEmail()).orElseThrow();
-
         var jwtToken =jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)

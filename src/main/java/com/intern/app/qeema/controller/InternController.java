@@ -1,9 +1,7 @@
 package com.intern.app.qeema.controller;
 
+import com.intern.app.qeema.model.DtoModels.*;
 import com.intern.app.qeema.model.entities.Projects;
-import com.intern.app.qeema.model.DtoModels.InternProject;
-import com.intern.app.qeema.model.DtoModels.InternRequest;
-import com.intern.app.qeema.model.DtoModels.InternResponse;
 import com.intern.app.qeema.model.secureDto.AuthenticationRequest;
 import com.intern.app.qeema.model.secureDto.AuthenticationResponse;
 //import com.intern.app.qeema.service.ExceptionHandler.ExceptionNotFound;
@@ -34,7 +32,8 @@ public class InternController {
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody InternRequest request
     ){
-        return ResponseEntity.ok(authservice.register(request));
+
+        return new ResponseEntity<AuthenticationResponse>(authservice.register(request), HttpStatus.CREATED);
     }
     @PostMapping("/LogIn")
     @Operation(summary = "logIn as an intern")
@@ -44,14 +43,6 @@ public class InternController {
         return ResponseEntity.ok(authservice.authenticate(request));
 
     }
-// final private InternRepo internRepo;
-//
-//    @PostMapping("/Intern")
-//    @Operation(summary = "Create intern")
-//    public ResponseEntity<InternRequest> creatIntern(@Valid @RequestBody InternRequest request){
-//        return new ResponseEntity<InternRequest>(service.createIntern(request), HttpStatus.CREATED);
-//    }
-
     @GetMapping("/interns")
     @Operation(summary = "Get all interns")
     public  ResponseEntity<List<InternResponse>> getAllInterns() {
@@ -81,14 +72,16 @@ public class InternController {
 
     @PatchMapping("/intern/acceptance/{id}")
     @Operation(summary = "Set the acceptance or the rejection of a certian intern")
-    public void setAcceptance (@PathVariable("id") int id ,@RequestBody boolean isAcceped) throws ChangeSetPersister.NotFoundException {
-       service.setAcceptance(id,isAcceped);
+    public ResponseEntity<AcceptanceResponse> setAcceptance (@PathVariable("id") int id , @RequestBody AcceptanceRequest acceptanceRequest) throws ChangeSetPersister.NotFoundException {
+        return new ResponseEntity<AcceptanceResponse>(service.setAcceptance(id,acceptanceRequest.isAcceptance())
+                , HttpStatus.OK);
     }
 
     @PatchMapping("/project")
     @Operation(summary = "Add project to a certian intern")
-    public void addProject(@Valid @RequestBody InternProject internProject) throws ExceptionInInitializerError{
-        service.creatProjectInIntern(internProject);
+    public ResponseEntity<Projects> addProject(@Valid @RequestBody InternProject internProject) throws ExceptionInInitializerError{
+        return new ResponseEntity<Projects>(service.creatProjectInIntern(internProject)
+                , HttpStatus.CREATED);
     }
 
     @GetMapping("/project/{id}")

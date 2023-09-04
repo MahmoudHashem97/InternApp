@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class Projects {
-    //id , name , description .
     @Id
     @SequenceGenerator(
             name = "Project_sequence",
@@ -24,7 +23,6 @@ public class Projects {
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "Project_sequence"
-
     )
     int id ;
     @Column(nullable = false)

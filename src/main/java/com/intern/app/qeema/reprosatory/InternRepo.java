@@ -12,7 +12,7 @@ public interface InternRepo extends JpaRepository<Intern, Integer> {
 
     public List<Intern> findByUniversity(String university,Sort sort);
 
-    //List<Intern> findAllByUniversityOrderByGpaDesc();
+    List<Intern> findAllByUniversityOrderByGpaDesc(String university);
 //    List<Intern> findByUniversityOrderByGpaDesc();
     public List<Intern> findByUniversityAndGpaGreaterThan(String university,Double gpa);
     Optional<Intern> findByEmail(String email);

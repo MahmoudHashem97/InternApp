@@ -1,5 +1,6 @@
 package com.intern.app.qeema.service;
 
+import com.intern.app.qeema.model.DtoModels.AcceptanceResponse;
 import com.intern.app.qeema.model.entities.Intern;
 import com.intern.app.qeema.model.DtoModels.InternProject;
 import com.intern.app.qeema.model.entities.Projects;
@@ -30,7 +31,6 @@ public class InternService {
 //        return internDTO;
 //    }
     public List<InternResponse> findAllInterns () {
-
         return  internRepo.findAll().stream().map( InternMapper::internResponseMapper).toList();
     }
     public List<InternResponse> findAllInternsSortedByGpaWithCertianUni (String university){
@@ -42,26 +42,22 @@ public class InternService {
                 .stream().map(InternMapper::internResponseMapper).toList();
     }
 
-    public void setAcceptance (int id , boolean isAccepted) throws ChangeSetPersister.NotFoundException {
-        //Intern intern =  internRepo.findById(id).get();
+    public AcceptanceResponse setAcceptance (int id , boolean isAccepted) throws ChangeSetPersister.NotFoundException {
        Intern intern =  internRepo.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
-
-//        Optional<Intern> internOptional = internRepo.findById(id);
-//        if(internOptional.isEmpty())
-
         intern.setAccepted(isAccepted);
-        internRepo.save(intern);
+        Intern internResponse =internRepo.save(intern);
+        return InternMapper.AcceptanceResponseMapper(internResponse);
     }
     public void deleteIntern(int id){
         internRepo.deleteById(id);
     }
 
-    public void creatProjectInIntern(InternProject internProject) throws ExceptionInInitializerError{
+    public Projects creatProjectInIntern(InternProject internProject) throws ExceptionInInitializerError{
         Intern intern =  internRepo.findById(internProject.getInternId()).orElseThrow(ExceptionInInitializerError::new);
 
         Projects newProject = projectServices.addProject( internProject);
 
-        if(intern.getProjectsInterns()==null) {//|| intern.getProjectsInterns().isEmpty())
+        if(intern.getProjectsInterns()==null|| intern.getProjectsInterns().isEmpty()) {//
             List<Projects> projects =new ArrayList<>();
             projects.add(newProject);
             intern.setProjectsInterns(projects);
@@ -71,6 +67,7 @@ public class InternService {
             intern.getProjectsInterns().add(newProject);
             internRepo.save(intern);
         }
+        return  newProject;
     }
 
 

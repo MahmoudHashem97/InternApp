@@ -4,6 +4,7 @@ package com.intern.app.qeema.model.entities;
 import com.intern.app.qeema.model.DtoModels.DesiredTrack;
 import com.intern.app.qeema.model.DtoModels.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,6 +39,7 @@ public class Intern implements UserDetails {
     private String name;
 
     @Column(name = "email",nullable = false)
+//    @Email
     private String email;
 
     @Column(name = "password",nullable = false)
